@@ -1,0 +1,20 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "${BE_PORT:-8000}:8000"
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-toeic}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-toeic_exercise}
+      GROQ_API_KEY: ${GROQ_API_KEY}
+      GROQ_MODEL: ${GROQ_MODEL:-llama-3.3-70b-versatile}
+      CORS_ORIGINS: http://localhost
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "${FE_PORT:-80}:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
