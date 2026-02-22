@@ -2,7 +2,7 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci
+RUN npm run install
 COPY . .
 # Skip vue-tsc type-check (done locally), only run vite build
 RUN node_modules/.bin/vite build
