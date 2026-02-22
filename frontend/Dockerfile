@@ -1,13 +1,5 @@
-# Stage 1: Build Vue app
-FROM node:20-alpine AS build
-WORKDIR /app
-COPY . .
-# RUN npm install --include=dev
-RUN ls -alh
-RUN npm run build
-
-# Stage 2: Serve with Nginx
+# Serve pre-built dist with Nginx (build locally before docker build)
 FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
