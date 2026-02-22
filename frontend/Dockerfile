@@ -2,8 +2,10 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 COPY package*.json ./
+RUN npm ci
 COPY . .
-RUN npm install && node node_modules/.bin/vite build
+# Skip vue-tsc type-check in Docker (already handled locally), run vite build directly
+RUN node_modules/.bin/vite build
 
 # Stage 2: Serve with Nginx
 FROM nginx:alpine
