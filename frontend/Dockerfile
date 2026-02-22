@@ -4,7 +4,7 @@ WORKDIR /app
 COPY . .
 RUN npm install
 # Skip vue-tsc type-check (done locally), only run vite build
-RUN node_modules/.bin/vite build
+RUN npm run build
 
 # Stage 2: Serve with Nginx
 FROM nginx:alpine
