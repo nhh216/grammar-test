@@ -1,9 +1,8 @@
 # Stage 1: Build Vue app
 FROM node:20-alpine AS build
 WORKDIR /app
-COPY package*.json ./
-RUN npm run install
 COPY . .
+RUN npm run install
 # Skip vue-tsc type-check (done locally), only run vite build
 RUN node_modules/.bin/vite build
 
