@@ -3,8 +3,12 @@ FROM node:20-alpine AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
+# Debug: check what was installed
+RUN echo "=== node_modules/.bin ===" && ls node_modules/.bin/ | head -30
+RUN echo "=== vite ===" && ls -la node_modules/.bin/vite || echo "VITE NOT FOUND"
+RUN echo "=== vue-tsc ===" && ls -la node_modules/.bin/vue-tsc || echo "VUE-TSC NOT FOUND"
+RUN echo "=== NODE_ENV ===" && echo $NODE_ENV
 COPY . .
-# Skip vue-tsc type-check in Docker (already handled locally), run vite build directly
 RUN npm run build
 
 # Stage 2: Serve with Nginx
