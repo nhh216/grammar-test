@@ -3,7 +3,7 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Install Poetry
-RUN pip install --no-cache-dir poetry==1.8.5
+RUN pip install --no-cache-dir poetry==1.8.4
 
 # Copy dependency files first (layer cache)
 COPY pyproject.toml poetry.lock ./
