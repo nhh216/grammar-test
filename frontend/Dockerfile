@@ -2,8 +2,7 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 COPY . .
-RUN npm install -g vue-tsc
-RUN npm install --include=dev
+# RUN npm install --include=dev
 RUN ls -alh
 RUN npm run build
 
